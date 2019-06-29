@@ -31,6 +31,10 @@ class ViewController: UIViewController {
   var placesViewController: PlaceScrollViewController?
     var LocationManager: CLLocationManager?
     var previousLocation: CLLocation?
+    
+    //we implement places with class InterstingPlace
+    var places: [InterestingPlace] = []
+    var selectedPlace: InterestingPlace? = nil
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -42,6 +46,11 @@ class ViewController: UIViewController {
     LocationManager?.delegate = self
     //Accuracy of location
     LocationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
+    //WE create a default value
+    selectedPlace = places.first
+    updateUI()
+    placesViewController?.addPlaces(places: places)
+    placesViewController?.delegate = self
     
   }
 
@@ -82,12 +91,20 @@ class ViewController: UIViewController {
             let latitude = property["Latitude"] as? NSNumber,
             let longitude = property["Longitude"] as? NSNumber,
             let image = property["Image"] as? String else { fatalError("Error reading data") }
-      print("name: \(name)")
-      print("latitude: \(latitude)")
-      print("longitude: \(longitude)")
-      print("image: \(image)")
+        let place = InterestingPlace(latitude: latitude.doubleValue, longitude: longitude.doubleValue, name: name, imageName: image)
+    
+        places.append(place)
+        
     }
   }
+    
+    private func updateUI() {
+        
+        placeName.text = selectedPlace?.name
+        guard let imageName = selectedPlace?.imageName , let image = UIImage(named: imageName) else {return}
+        placeImage.image = image
+        
+    }
   
   private func loadPlist() -> [[String: Any]]? {
     guard let plistUrl = Bundle.main.url(forResource: "Places", withExtension: "plist"),
@@ -130,5 +147,21 @@ extension ViewController: CLLocationManagerDelegate {
             previousLocation = latest
         }
     }
+    
+}
+//MARK: PlaceScrollViewControllerDelegate
+extension ViewController: PlaceScrollViewControllerDelegate {
+    
+    
+    func selectedPlaceViewController(_ controller: PlaceScrollViewController, didSelectPlace place: InterestingPlace) {
+        
+        selectedPlace = place
+        updateUI()
+    }
+    
+    
+    
+    
+    
     
 }

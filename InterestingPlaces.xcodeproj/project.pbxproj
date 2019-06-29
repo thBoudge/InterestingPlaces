@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14DAE3C622C806DE0016C105 /* InterestingPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DAE3C522C806DE0016C105 /* InterestingPlace.swift */; };
 		D30AC51E216E4C9E00033D1D /* PlaceScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30AC51D216E4C9E00033D1D /* PlaceScrollViewController.swift */; };
 		D37747851CB6835700641F78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37747841CB6835700641F78 /* AppDelegate.swift */; };
 		D37747871CB6835700641F78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37747861CB6835700641F78 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		14DAE3C522C806DE0016C105 /* InterestingPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestingPlace.swift; sourceTree = "<group>"; };
 		D30AC51D216E4C9E00033D1D /* PlaceScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceScrollViewController.swift; sourceTree = "<group>"; };
 		D37747811CB6835700641F78 /* InterestingPlaces.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterestingPlaces.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D37747841CB6835700641F78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				D37747901CB6835700641F78 /* Info.plist */,
 				D37747981CB69E3B00641F78 /* Places.plist */,
 				D30AC51D216E4C9E00033D1D /* PlaceScrollViewController.swift */,
+				14DAE3C522C806DE0016C105 /* InterestingPlace.swift */,
 			);
 			path = InterestingPlaces;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 			files = (
 				D37747871CB6835700641F78 /* ViewController.swift in Sources */,
 				D30AC51E216E4C9E00033D1D /* PlaceScrollViewController.swift in Sources */,
+				14DAE3C622C806DE0016C105 /* InterestingPlace.swift in Sources */,
 				D37747851CB6835700641F78 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
