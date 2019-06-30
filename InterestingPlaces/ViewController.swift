@@ -30,7 +30,7 @@ class ViewController: UIViewController {
   @IBOutlet weak var placeImage: UIImageView!
   var placesViewController: PlaceScrollViewController?
     var LocationManager: CLLocationManager?
-    var previousLocation: CLLocation?
+    var currentLocation: CLLocation?
     
     //we implement places with class InterstingPlace
     var places: [InterestingPlace] = []
@@ -104,6 +104,12 @@ class ViewController: UIViewController {
         guard let imageName = selectedPlace?.imageName , let image = UIImage(named: imageName) else {return}
         placeImage.image = image
         
+        guard let currentLocation = currentLocation, let distanceMeters = selectedPlace?.location.distance(from: currentLocation) else {return}
+        //Convert in Miles
+        let distance = Measurement(value: distanceMeters, unit: UnitLength.meters)
+        let miles = distance.converted(to: .miles)
+        locationDistance.text = "\(miles)"
+        
     }
   
   private func loadPlist() -> [[String: Any]]? {
@@ -135,17 +141,20 @@ extension ViewController: CLLocationManagerDelegate {
     // We receive location and we ruse them
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        if previousLocation == nil {
-            previousLocation = locations.first
-            
-        } else {
-            guard let latest = locations.first else {return}
-            //get distance in meter from the first location to our current location
-            let distanceInMeters = previousLocation?.distance(from: latest) ?? 0
-            print("distance en metre : \(distanceInMeters)")
-            // we set previousLocation we our newLocation
-            previousLocation = latest
-        }
+        //get our current location
+        currentLocation = locations.first 
+        
+//        if currentLocation == nil {
+//            currentLocation = locations.first
+//
+//        } else {
+//            guard let latest = locations.first else {return}
+//            //get distance in meter from the first location to our current location
+//            let distanceInMeters = currentLocation?.distance(from: latest) ?? 0
+//            print("distance en metre : \(distanceInMeters)")
+//            // we set previousLocation we our newLocation
+//            currentLocation = latest
+//        }
     }
     
 }
