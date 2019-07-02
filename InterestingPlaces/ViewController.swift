@@ -28,13 +28,19 @@ class ViewController: UIViewController {
   @IBOutlet weak var placeName: UILabel!
   @IBOutlet weak var locationDistance: UILabel!
   @IBOutlet weak var placeImage: UIImageView!
+    
+    @IBOutlet weak var addressLabel: UILabel!
+    
+    
   var placesViewController: PlaceScrollViewController?
     var LocationManager: CLLocationManager?
     var currentLocation: CLLocation?
-    
+
     //we implement places with class InterstingPlace
     var places: [InterestingPlace] = []
     var selectedPlace: InterestingPlace? = nil
+    // create geocoder Object
+    lazy var geocoder = CLGeocoder()
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -115,6 +121,8 @@ class ViewController: UIViewController {
         let miles = distance.converted(to: .miles)
         locationDistance.text = "\(miles)"
         
+        printAddress()
+        
     }
   
   private func loadPlist() -> [[String: Any]]? {
@@ -129,7 +137,42 @@ class ViewController: UIViewController {
     }
     return placedEntries
   }
+    
+    // Method that Print address of location
+    private func printAddress() {
+        
+        guard let selectedPlace = selectedPlace else {return}
+        
+        geocoder.reverseGeocodeLocation(selectedPlace.location) {
+            [weak self] (placemarks, error) in
+            
+            // 1- we check if we do have an error
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            // 2 - we need to get first place from placemark Array
+            guard let placemark = placemarks?.first else {return}
+            
+            //3 we get address information
+            if let streetNumber = placemark.subThoroughfare,
+                let street = placemark.thoroughfare,
+                let city = placemark.locality,
+                let state = placemark.administrativeArea{
+                
+                self?.addressLabel.text = "\(streetNumber) \(street) \(city), \(state) "
+            }
+        }
+        
+    }
+
+    
 }
+
+
+
+
 
 // MARK: Corelocation protocol Delegate
 
