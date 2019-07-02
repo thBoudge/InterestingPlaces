@@ -84,7 +84,7 @@ class ViewController: UIViewController {
     
     private func activateLocationService() {
         
-        LocationManager?.startUpdatingLocation()
+        LocationManager?.requestLocation()
     }
   
   func loadPlaces() {
@@ -141,6 +141,11 @@ extension ViewController: CLLocationManagerDelegate {
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             activateLocationService()
         }
+    }
+    
+    // dealing with error
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
     }
     
     // We receive location and we ruse them
