@@ -46,6 +46,11 @@ class ViewController: UIViewController {
     LocationManager?.delegate = self
     //Accuracy of location
     LocationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
+    
+    //after add background in Category "location update"
+    //We allow backgroundLocationUpdates to work :
+    LocationManager?.allowsBackgroundLocationUpdates = true
+    
     //WE create a default value
     selectedPlace = places.first
     updateUI()
@@ -70,8 +75,8 @@ class ViewController: UIViewController {
      activateLocationService()
         
     }else{
-        //we request permission
-        LocationManager?.requestWhenInUseAuthorization()
+        //we request permission as we use backgroun we request an always utilisation
+        LocationManager?.requestAlwaysAuthorization()
     }
     
     
@@ -142,7 +147,8 @@ extension ViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         //get our current location
-        currentLocation = locations.first 
+        currentLocation = locations.first
+        print(currentLocation)
         
 //        if currentLocation == nil {
 //            currentLocation = locations.first
